@@ -1,2 +1,2 @@
-# vue-practive
+# vue-practice
 my first try on vue.js
