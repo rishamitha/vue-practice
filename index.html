@@ -1,0 +1,64 @@
+t<html>
+    <head>
+        <title>Vue Practice</title>
+    </head>
+
+    <body>
+        <!-- vue element -->
+        <div id="root">
+            <input type="text" id="input" v-model="message">
+            <p>The reversed value of the input is : {{ reversedMessage }}</p>
+            
+            <button :disabled="isDisabled" @click="toggleButton">Click Me</button>
+            
+            <h2>Tasks</h2>
+            <ul>
+                <li v-for="task in tasks" v-text="task.description"></li>
+            </ul>
+
+            <button @click="toggleTask(false)">Show Incomplete Tasks</button>
+            <button @click="toggleTask(true)">Show Completed Tasks</button>
+            <h3 v-if="isCompleted">Completed Tasks</h3>
+            <h3 v-if="!isCompleted">Incomplete Tasks</h3>
+            <ul>
+                <li v-for="task in filterTask" v-text="task.description"></li>
+            </ul>
+        </div>
+        <script src="https://use.fontawesome.com/e68714b2ae.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+        <script>
+            new Vue({
+                el: '#root',
+                data: {
+                    message: 'Hello',
+                    isDisabled: false,
+                    isCompleted: false,
+                    tasks: [
+                        { description: 'Go to the store', completed: true },
+                        { description: 'Finish screencast', completed: false },
+                        { description: 'Make donation', completed: false },
+                        { description: 'Clear inbox', completed: false },
+                        { description: 'Make dinner', completed: false },
+                        { description: 'Clean room', completed: true }
+                    ],
+                },
+                methods: {
+                    toggleButton() {
+                        this.isDisabled = true
+                    },
+                    toggleTask(status) {
+                        this.isCompleted = status
+                    }
+                },
+                computed: {
+                    reversedMessage() {
+                        return this.message.split('').reverse().join('');
+                    },
+                    filterTask() {
+                        return this.tasks.filter(task => task.completed == this.isCompleted)
+                    }
+                },
+            })
+        </script>
+    </body>
+</html>
